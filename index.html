@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obiettivi SMART – Esercitazione</title>
+<style>
+:root{
+  --bg:#f6f5f1; --card:#ffffff; --ink:#1f2a33; --muted:#5f6b75; --line:#dfdcd4;
+  --accent:#1f5f6b; --accent-2:#c8693c; --ok:#2f7d4f; --warn:#b7791f; --ko:#b03a2e;
+  --soft:#eef3f3; --soft-2:#f8efe9;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{background:var(--ink);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:600}
+header .sub{font-size:13px;opacity:.75}
+header .sp{flex:1}
+header button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:6px 10px;cursor:pointer;font-size:13px}
+nav{display:flex;gap:4px;padding:0 24px;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
+nav button{border:0;background:none;padding:12px 14px;font-size:14px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.on{color:var(--ink);border-bottom-color:var(--accent-2);font-weight:600}
+nav button:disabled{opacity:.4;cursor:not-allowed}
+main{max-width:1100px;margin:0 auto;padding:22px 24px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:16px}
+h2{font-size:20px;margin:0 0 10px} h3{font-size:16px;margin:14px 0 6px}
+p{margin:6px 0 10px}
+.muted{color:var(--muted)} .small{font-size:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input[type=text],input[type=password],textarea,select{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:inherit;background:#fff}
+textarea{min-height:64px;resize:vertical}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn.sec{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+.btn.warm{background:var(--accent-2)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.smart{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media(max-width:700px){.smart{grid-template-columns:1fr}}
+.sm-def{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fcfbf8}
+.sm-def b.L{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;margin-right:6px}
+.obj{border-left:4px solid var(--accent-2)}
+.obj .txt{font-size:18px;font-weight:600;margin:2px 0 12px}
+.letters{display:flex;gap:8px;flex-wrap:wrap}
+.lt{width:auto;min-width:118px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;text-align:left;font:inherit}
+.lt b{font-size:18px;margin-right:4px}
+.lt .st{display:block;font-size:12px;color:var(--muted)}
+.lt.x{background:var(--ko);border-color:var(--ko);color:#fff}
+.lt.x .st{color:#fff}
+.lt.good{outline:3px solid var(--ok)} .lt.bad{outline:3px dashed var(--ko)}
+.lt:disabled{cursor:default}
+.fb{border-left:4px solid var(--line);padding:6px 12px;margin:8px 0;background:#fcfbf8;border-radius:0 6px 6px 0}
+.fb.ok{border-color:var(--ok)} .fb.warn{border-color:var(--warn)} .fb.ko{border-color:var(--ko)}
+.note{background:var(--soft);border-radius:8px;padding:10px 14px}
+.lock{background:var(--soft-2);border-radius:8px;padding:10px 14px}
+.score-big{font-size:54px;font-weight:700;line-height:1;color:var(--accent)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.kpi .card{margin:0}
+.hint{display:inline-block;font-size:12px;border-radius:12px;padding:2px 9px;margin:3px 4px 0 0;border:1px solid var(--line)}
+.hint.ok{background:#e9f4ed;border-color:#bfe0cb;color:var(--ok)} .hint.no{background:#fbecea;border-color:#efc6c1;color:var(--ko)} .hint.w{background:#fbf3e3;border-color:#efd9a8;color:var(--warn)}
+.ai{background:#f3f6fb;border:1px solid #d8e1ee;border-radius:8px;padding:12px 14px;margin-top:10px}
+.ai .lts{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.ai .lts span{font-size:12px;border-radius:4px;padding:2px 7px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:center;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;color:var(--muted);background:#faf9f6}
+td.l,th.l{text-align:left}
+.c-ok{background:#e3f1e8} .c-ko{background:#f7dedb}
+.tbl-wrap{overflow-x:auto}
+.hide{display:none!important}
+.modal{position:fixed;inset:0;background:rgba(20,28,34,.55);display:grid;place-items:center;z-index:20;padding:16px}
+.modal>.card{max-width:680px;width:100%;max-height:90vh;overflow:auto}
+@media print{header button,nav,.noprint{display:none!important}body{background:#fff}.card{break-inside:avoid}}
+details.guide{background:#eef3f3;border-radius:8px;padding:8px 14px;margin:0 0 14px}
+details.guide summary{cursor:pointer;font-weight:700;color:#1f5f6b}
+details.guide ol{padding-left:20px;margin:6px 0}details.guide li{margin:5px 0;font-size:14px}
+details.guide h4{margin:12px 0 4px;font-size:14px}
+.pw{display:inline-block;background:#1f2a33;color:#fff;border-radius:4px;padding:1px 8px;font-family:monospace;font-size:14px}
+details.guide p{font-size:14px;margin:6px 0}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Gli obiettivi del collaboratore · Goal setting SMART</h1><div class="sub" id="hdrTeam">Esercitazione di team · Stra-Le Management Lab</div></div>
+  <div class="sp"></div>
+  <button onclick="window.print()" class="noprint">Stampa / PDF</button>
+  <button onclick="openTrainer()" class="noprint">Formatore</button>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+<div class="modal hide" id="modal"><div class="card" id="modalBody"></div></div>
+
+<script>
+/* ---------------- CONTENUTI ---------------- */
+const L=['S','M','A','R','T'];
+const DEF={
+ S:['Specifico','Dice con chiarezza che cosa si vuole ottenere: quale risultato, su quale indicatore, in quale ambito.'],
+ M:['Misurabile','Ha un indicatore e un valore (numero, percentuale, soglia) che permette di dire senza discussioni se è stato raggiunto.'],
+ A:['Ambizioso','È sfidante: chiede uno sforzo in più rispetto all\'andamento naturale. Obiettivi difficili, ma accettati, producono prestazioni migliori (Locke).'],
+ R:['Raggiungibile','È realistico con le risorse, il tempo, le competenze e il mercato disponibili. Se è percepito come impossibile, demotiva.'],
+ T:['Tempificato','Ha una scadenza precisa o una finestra temporale, eventualmente con tappe intermedie.'],
+};
+// k: ko = non soddisfatta (va segnata) · ok = soddisfatta · d = discutibile (accettate entrambe)
+const OBJ=[
+ {id:'a',t:'Migliorare il servizio ai clienti.',
+  k:{S:'ko',M:'ko',A:'d',R:'d',T:'ko'},
+  why:{S:'"Migliorare" e "servizio" non dicono che cosa deve cambiare: tempi di attesa? reclami? soddisfazione? Ognuno lo legge a modo suo.',
+       M:'Non c\'è alcun indicatore né valore di arrivo: a fine anno nessuno può dire se è stato raggiunto.',
+       A:'Senza un valore di arrivo non si può dire se sia sfidante: va bene sia segnarlo sia non segnarlo, purché ne abbiate discusso.',
+       R:'Come per A: senza misura non si può giudicare se sia realistico.',
+       T:'Manca una scadenza.'},
+  ex:'Entro il 31 dicembre, ridurre i reclami dei clienti da 212 a non più di 100 e le chiusure di conto per insoddisfazione da 32 a non più di 11 (fonte: registro reclami e procedura chiusure di filiale).',
+  lesson:'Obiettivo-slogan: esprime un desiderio, non un risultato. Il primo passo è scegliere gli indicatori che rappresentano il "servizio".'},
+ {id:'b',t:'Aumentare la raccolta diretta della filiale dello 0,2%.',
+  k:{S:'ok',M:'ok',A:'ko',R:'ok',T:'ko'},
+  why:{S:'È chiaro che cosa si vuole: più raccolta diretta della filiale.',
+       M:'C\'è un indicatore e una percentuale.',
+       A:'Lo 0,2% è meno dell\'andamento naturale (anche in un anno difficile la raccolta si muove di più): non chiede alcuno sforzo e non mobilita nessuno.',
+       R:'Raggiungibile lo è, fin troppo.',
+       T:'Non c\'è una scadenza: 0,2% entro quando?'},
+  ex:'Entro il 31 dicembre, aumentare la raccolta diretta della filiale del 6% rispetto al 1° gennaio (da 36,5 a 38,6 milioni), di cui almeno 1 milione da clienti nuovi.',
+  lesson:'Un obiettivo troppo facile è un obiettivo sprecato: non orienta i comportamenti e manda il messaggio che "va bene così".'},
+ {id:'c',t:'Raddoppiare in 6 mesi il margine di intermediazione.',
+  k:{S:'ok',M:'ok',A:'ok',R:'ko',T:'ok'},
+  why:{S:'L\'indicatore è preciso (margine di intermediazione).',
+       M:'Il raddoppio è misurabile.',
+       A:'È certamente ambizioso.',
+       R:'Raddoppiare in sei mesi un margine che dipende anche da tassi e mercato non è realistico: oltre una certa soglia la difficoltà fa crollare la motivazione invece di aumentarla.',
+       T:'La finestra di 6 mesi c\'è.'},
+  ex:'Entro il 30 giugno, aumentare il margine di intermediazione della filiale dell\'8% rispetto al primo semestre dell\'anno precedente, con commissioni da risparmio gestito +15% e 2 milioni di nuovi impieghi alle PMI.',
+  lesson:'La curva di Locke: la prestazione cresce con la difficoltà dell\'obiettivo solo finché l\'obiettivo è percepito come raggiungibile. Ambizioso e Raggiungibile vanno tenuti insieme.'},
+ {id:'d',t:'Migliorare l\'efficienza complessiva della filiale.',
+  k:{S:'ko',M:'ko',A:'d',R:'d',T:'ko'},
+  why:{S:'"Efficienza complessiva" non indica su quali processi o indicatori agire.',
+       M:'Nessun indicatore di efficienza (tempi, costi, operazioni per addetto...).',
+       A:'Non valutabile senza un valore di arrivo.',
+       R:'Non valutabile senza un valore di arrivo.',
+       T:'Manca la scadenza.'},
+  ex:'Entro il 31 marzo, ridurre il tempo medio di attesa in cassa da 15 a 8 minuti e portare dal 40% al 70% la quota di bonifici dei clienti con home banking eseguiti online.',
+  lesson:'Come per a): un\'area di miglioramento non è un obiettivo. Va tradotta in 1-3 indicatori concreti.'},
+ {id:'e',t:'Raggiungere una conoscenza adeguata dei prodotti di raccolta indiretta offerti dalla banca.',
+  k:{S:'ko',M:'ko',A:'d',R:'d',T:'ko'},
+  why:{S:'"Adeguata" è un giudizio, non un risultato; e "i prodotti" sono troppi per essere un obiettivo preciso.',
+       M:'Come si verifica la conoscenza? Serve un test, una certificazione o un comportamento osservabile.',
+       A:'Non valutabile finché non è definito il livello richiesto.',
+       R:'Probabilmente raggiungibile, ma dipende dal livello richiesto e dalla formazione disponibile.',
+       T:'Manca la scadenza.'},
+  ex:'Entro il 30 aprile, superare con almeno l\'80% il test interno su fondi e gestioni patrimoniali della banca e condurre in autonomia 10 consulenze di asset allocation, dopo 5 in affiancamento al consulente senior.',
+  lesson:'Anche gli obiettivi di sviluppo delle competenze possono essere SMART: si misurano con test, certificazioni o comportamenti osservabili.'},
+ {id:'f',t:'Trasformare, nei prossimi 12 mesi, il 20% della raccolta indiretta in raccolta diretta (obbligazioni della banca).',
+  k:{S:'ok',M:'ok',A:'ok',R:'d',T:'ok'},
+  why:{S:'Chiaro che cosa si vuole ottenere.',
+       M:'Il 20% è misurabile.',
+       A:'È sfidante.',
+       R:'Formalmente può esserlo; ma con tassi bassi è difficile convincere i clienti, e spostare il 20% del loro risparmio sulle obbligazioni della banca può andare contro il loro interesse e il loro profilo di rischio. Se l\'avete segnato, avete visto il problema.',
+       T:'"Nei prossimi 12 mesi": la scadenza c\'è.'},
+  ex:'Nei prossimi 12 mesi, aumentare la raccolta diretta di 3 milioni portando liquidità nuova da altre banche, senza ridurre la raccolta indiretta dei clienti esistenti e nel rispetto del profilo di rischio di ciascun cliente.',
+  lesson:'La trappola: è quasi perfettamente SMART, ma è un cattivo obiettivo. Sposta denaro da una tasca all\'altra della stessa banca, riduce le commissioni e rischia di forzare il cliente. SMART è necessario ma non sufficiente: un obiettivo deve anche essere coerente con la strategia, i valori e lo stile che l\'organizzazione chiede. Altrimenti orienta i comportamenti nella direzione sbagliata.'},
+ {id:'g',t:'Ridurre ragionevolmente le sofferenze.',
+  k:{S:'d',M:'ko',A:'ko',R:'d',T:'ko'},
+  why:{S:'L\'oggetto è chiaro (le sofferenze), ma non dice su quali posizioni né con quali azioni: va bene sia segnarlo sia non segnarlo.',
+       M:'"Ragionevolmente" non è una misura.',
+       A:'"Ragionevolmente" dichiara in partenza che non si chiede uno sforzo: è l\'opposto di un obiettivo ambizioso.',
+       R:'Non valutabile senza un valore di arrivo.',
+       T:'Manca la scadenza.'},
+  ex:'Entro il 31 dicembre, ridurre lo stock di sofferenze della filiale da 1,2 a 0,9 milioni (−25%), definendo piani di rientro su 10 posizioni e monitorando ogni mese le 20 posizioni a rischio più alto.',
+  lesson:'Gli avverbi ("ragionevolmente", "adeguatamente", "il più possibile") sono il modo più comune per rendere un obiettivo non valutabile.'},
+];
+
+/* ---------------- STATO ---------------- */
+const KEY='strale_smart_v1';
+let S=load()||{team:'',classe:'',membri:'',diag:{},com:{},rw:{},self:{},ai:{},dSub:false,rSub:false,tab:0,unlocked:false};
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const CFG_KEY='strale_smart_cfg';
+function cfg(){try{return JSON.parse(localStorage.getItem(CFG_KEY))||{}}catch(e){return {}}}
+function setCfg(c){try{localStorage.setItem(CFG_KEY,JSON.stringify(c))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------- NAV ---------------- */
+const TABS=['1 · SMART','2 · Diagnosi','3 · Esito diagnosi','4 · Riscrittura','5 · Riepilogo'];
+function renderNav(){
+  $('nav').innerHTML=TABS.map((t,i)=>{const dis=(i===2&&!S.dSub)||(i===3&&!S.dSub)||(i===4&&!S.rSub);
+    return `<button class="${S.tab===i?'on':''}" ${dis?'disabled':''} onclick="go(${i})">${t}</button>`}).join('');
+  $('hdrTeam').textContent=S.team?`Team: ${S.team}${S.classe?' · '+S.classe:''}`:'Esercitazione di team · Stra-Le Management Lab';
+}
+function go(i){S.tab=i;save();render();window.scrollTo(0,0)}
+function render(){renderNav();[tIntro,tDiag,tEsito,tRw,tSum][S.tab]()}
+
+/* ---------------- 1 INTRO ---------------- */
+function smartBox(){return `<div class="smart">${L.map(l=>`<div class="sm-def"><b class="L">${l}</b><b>${DEF[l][0]}</b><p class="small">${DEF[l][1]}</p></div>`).join('')}</div>`}
+function tIntro(){
+  $('main').innerHTML=`
+  <div class="card"><h2>Il vostro team</h2>
+   <div class="grid2"><div><label>Nome del team</label><input type="text" value="${esc(S.team)}" oninput="S.team=this.value;save();renderNav()"></div>
+   <div><label>Classe / edizione</label><input type="text" value="${esc(S.classe)}" placeholder="es. BCC Vallo – Classe 1" oninput="S.classe=this.value;save();renderNav()"></div></div>
+   <div style="margin-top:10px"><label>Componenti</label><input type="text" value="${esc(S.membri)}" oninput="S.membri=this.value;save()"></div></div>
+  <div class="card"><h2>Gli obiettivi efficaci sono SMART</h2>${smartBox()}</div>
+  <div class="card note">
+   <b>Il compito.</b> Un direttore di filiale ha assegnato ai suoi collaboratori sette obiettivi.
+   <p>1. <b>Diagnosi</b> (circa 15 minuti): per ogni obiettivo segnate quali lettere <b>non</b> sono soddisfatte (una o più) e motivate.<br>
+   2. <b>Riscrittura</b> (circa 20 minuti): dopo aver visto l'esito, riscrivete ogni obiettivo in modo che sia SMART.<br>
+   3. <b>Plenaria</b>: il formatore commenta gli obiettivi riscritti di tutti i team.</p>
+   <button class="btn" onclick="go(1)">Inizia la diagnosi →</button></div>`;
+}
+
+/* ---------------- 2 DIAGNOSI ---------------- */
+function tog(o,l){if(S.dSub)return;const a=S.diag[o]||[];S.diag[o]=a.includes(l)?a.filter(x=>x!==l):[...a,l];save();tDiag()}
+function letterBtns(o,mode){
+  const sel=S.diag[o.id]||[];
+  return `<div class="letters">${L.map(l=>{const x=sel.includes(l);let cl=x?'x':'';
+    if(mode==='esito'){const k=o.k[l];const right=k==='d'||(k==='ko')===x;cl+=right?' good':' bad'}
+    return `<button class="lt ${cl}" ${S.dSub?'disabled':''} onclick="tog('${o.id}','${l}')"><b>${l}</b>${DEF[l][0]}<span class="st">${x?'✗ non soddisfatta':'✓ soddisfatta'}</span></button>`}).join('')}</div>`}
+function tDiag(){
+  $('main').innerHTML=`
+  <div class="card"><h2>Diagnosi</h2><p>Toccate le lettere che l'obiettivo <b>non</b> soddisfa: diventano rosse. Una o più per obiettivo; se lo ritenete perfetto, non segnate nulla.</p>
+  ${S.dSub?'<div class="lock">Diagnosi consegnata. Vedi "Esito diagnosi".</div>':''}</div>
+  ${OBJ.map(o=>`<div class="card obj"><div class="muted small">Obiettivo ${o.id})</div><div class="txt">${o.t}</div>${letterBtns(o)}
+   <div style="margin-top:10px"><label>Perché? (facoltativo, utile in plenaria)</label><textarea ${S.dSub?'disabled':''} oninput="S.com['${o.id}']=this.value;save()">${esc(S.com[o.id])}</textarea></div></div>`).join('')}
+  ${S.dSub?'':`<div class="card row noprint"><button class="btn warm" onclick="confirmDiag()">Consegna la diagnosi</button><span class="small muted">Dopo la consegna vedrete il punteggio e le spiegazioni.</span></div>`}`;
+}
+function confirmDiag(){modal(`<h2>Consegnare la diagnosi?</h2><p>Non sarà più modificabile.</p><div class="row"><button class="btn warm" onclick="S.dSub=true;S.dAt=new Date().toISOString();save();closeModal();go(2)">Sì, consegna</button><button class="btn sec" onclick="closeModal()">Annulla</button></div>`)}
+
+/* ---------------- 3 ESITO ---------------- */
+function diagScore(diag){let p=0,per={};for(const o of OBJ){const sel=diag[o.id]||[];let s=0;
+  for(const l of L){const k=o.k[l],x=sel.includes(l);if(k==='d'||(k==='ko')===x)s++}per[o.id]=s;p+=s}
+  return {p,max:OBJ.length*5,per}}
+function tEsito(){
+  const ds=diagScore(S.diag);const pc=Math.round(100*ds.p/ds.max);
+  $('main').innerHTML=`
+  <div class="kpi"><div class="card"><label>Punteggio diagnosi</label><div class="score-big">${ds.p}<span style="font-size:24px;color:var(--muted)">/${ds.max}</span></div><div class="muted">${pc}% di lettere valutate correttamente</div></div>
+  <div class="card"><label>Come leggere</label><p class="small">Contorno <b style="color:var(--ok)">verde</b>: valutazione corretta. Contorno <b style="color:var(--ko)">tratteggiato rosso</b>: da rivedere. Le lettere "discutibili" sono accettate in entrambi i casi.</p></div></div>
+  ${OBJ.map(o=>`<div class="card obj"><div class="row"><div class="muted small">Obiettivo ${o.id})</div><div style="flex:1"></div><b>${ds.per[o.id]}/5</b></div>
+   <div class="txt">${o.t}</div>${letterBtns(o,'esito')}
+   ${L.map(l=>{const k=o.k[l],x=(S.diag[o.id]||[]).includes(l);const right=k==='d'||(k==='ko')===x;
+     return `<div class="fb ${k==='d'?'warn':right?'ok':'ko'}"><b>${l} · ${DEF[l][0]}</b> — ${k==='ko'?'non soddisfatta':k==='ok'?'soddisfatta':'discutibile'}${right?'':' <b>(da rivedere)</b>'}. ${o.why[l]}</div>`}).join('')}
+   <div class="note small" style="margin-top:8px"><b>Il punto chiave.</b> ${o.lesson}</div></div>`).join('')}
+  <div class="card row noprint"><button class="btn" onclick="go(3)">Passa alla riscrittura →</button></div>`;
+}
+
+/* ---------------- 4 RISCRITTURA ---------------- */
+const RX={
+ num:/\d|\b(un|una|due|tre|quattro|cinque|dieci|venti|cento|mille|doppio|metà)\b/i,
+ time:/\b(entro|scadenza|fine|31|30|gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre|mese|mesi|settiman\w*|trimestr\w*|semestr\w*|anno|anni|giorni|q[1-4])\b/i,
+ base:/\bda\s+[\d.,]+.*\ba\s+[\d.,]+|rispetto (a|al|allo|alla)|\bvs\b|\bdi partenza\b/i,
+ vague:/\b(migliorare|ottimizzare|adeguat\w*|ragionevol\w*|possibile|efficien\w*|buon\w*|maggiore attenzione|sensibilmente|significativ\w*)\b/i,
+};
+function hints(t){t=(t||'').trim();if(!t)return '';const H=[];const w=t.split(/\s+/).length;
+  H.push(RX.num.test(t)?['ok','M: c\'è un valore numerico']:['no','M: manca un valore numerico']);
+  H.push(RX.time.test(t)?['ok','T: c\'è un riferimento temporale']:['no','T: manca una scadenza']);
+  H.push(RX.base.test(t)?['ok','c\'è il punto di partenza (aiuta a giudicare A e R)']:['w','manca il punto di partenza ("da X a Y")']);
+  const v=t.match(RX.vague);if(v)H.push(['w',`parola vaga: "${v[0]}"`]);
+  if(w<8)H.push(['w','molto breve: è abbastanza specifico?']);
+  return `<div class="small muted" style="margin-top:6px">Controllo automatico rapido (non sostituisce il vostro giudizio):</div>`+H.map(h=>`<span class="hint ${h[0]}">${h[1]}</span>`).join('')}
+function selfTog(o,l){if(S.rSub)return;S.self[o]=S.self[o]||{};S.self[o][l]=!S.self[o][l];save();const el=$('self_'+o);if(el)el.innerHTML=selfBtns(o)}
+function selfBtns(o){const s=S.self[o]||{};return L.map(l=>`<button class="btn sm ${s[l]?'':'sec'}" ${S.rSub?'disabled':''} onclick="selfTog('${o}','${l}')">${s[l]?'✓ ':''}${l}</button>`).join(' ')}
+function tRw(){
+  const hasKey=!!cfg().key;
+  $('main').innerHTML=`
+  <div class="card"><h2>Riscrittura</h2><p>Riscrivete ogni obiettivo perché sia SMART: Specifico, Misurabile, Ambizioso, Raggiungibile, Tempificato. Potete inventare dati verosimili (valori di partenza, scadenze). Poi spuntate le lettere che secondo voi il nuovo obiettivo soddisfa.</p>
+  ${S.rSub?'<div class="lock">Riscrittura consegnata.</div>':''}</div>
+  ${OBJ.map(o=>`<div class="card obj"><div class="muted small">Obiettivo ${o.id}) originale</div><div class="txt" style="font-size:16px">${o.t}</div>
+   <label>Il nostro obiettivo riscritto</label>
+   <textarea id="rw_${o.id}" ${S.rSub?'disabled':''} oninput="S.rw['${o.id}']=this.value;save();$('h_${o.id}').innerHTML=hints(this.value)">${esc(S.rw[o.id])}</textarea>
+   <div id="h_${o.id}">${hints(S.rw[o.id])}</div>
+   <div class="row" style="margin-top:8px"><span class="small muted">Secondo noi soddisfa:</span><span id="self_${o.id}">${selfBtns(o.id)}</span></div>
+   ${hasKey?`<div class="row noprint" style="margin-top:8px"><button class="btn sm sec" onclick="aiOne('${o.id}')">Chiedi il commento di Claude</button></div>`:''}
+   <div id="ai_${o.id}">${aiBox(o.id)}</div></div>`).join('')}
+  ${S.rSub?'':`<div class="card row noprint"><button class="btn warm" onclick="confirmRw()">Consegna gli obiettivi riscritti</button></div>`}`;
+}
+function confirmRw(){const miss=OBJ.filter(o=>!(S.rw[o.id]||'').trim()).map(o=>o.id);
+  modal(`<h2>Consegnare la riscrittura?</h2>${miss.length?`<p class="fb warn">Obiettivi non riscritti: <b>${miss.join(', ')}</b></p>`:''}<p>Dopo la consegna potrete scaricare il file del team e stampare il PDF per il formatore.</p>
+  <div class="row"><button class="btn warm" onclick="S.rSub=true;S.rAt=new Date().toISOString();save();closeModal();go(4)">Sì, consegna</button><button class="btn sec" onclick="closeModal()">Annulla</button></div>`)}
+
+/* ---------------- COMMENTO AI (opzionale, chiave del formatore) ---------------- */
+function aiBox(id){const a=S.ai[id];if(!a)return '';if(a.err)return `<div class="ai small">Commento non disponibile: ${esc(a.err)}</div>`;
+  if(a.loading)return `<div class="ai small">Claude sta leggendo l'obiettivo…</div>`;
+  return `<div class="ai"><b>Commento di Claude</b> · voto ${a.voto}/10
+   <div class="lts">${L.map(l=>{const v=a.lettere&&a.lettere[l];return `<span style="background:${v&&v.ok?'#e3f1e8':'#f7dedb'};color:${v&&v.ok?'var(--ok)':'var(--ko)'}" title="${esc(v&&v.nota)}">${l} ${v&&v.ok?'✓':'✗'}</span>`}).join('')}</div>
+   <div class="small">${L.map(l=>a.lettere&&a.lettere[l]&&a.lettere[l].nota?`<div><b>${l}</b>: ${esc(a.lettere[l].nota)}</div>`:'').join('')}</div>
+   <p class="small" style="margin-top:6px">${esc(a.commento)}</p>
+   ${a.proposta?`<p class="small"><b>Una versione possibile:</b> ${esc(a.proposta)}</p>`:''}</div>`}
+const SYS=`Sei un formatore manageriale esperto di goal setting nel settore bancario (BCC). Valuti obiettivi assegnati da un direttore di filiale ai suoi collaboratori, riscritti da un team di partecipanti a un corso.
+Usa questa definizione SMART (attenzione: A e R hanno un significato preciso):
+S = Specifico: dice con chiarezza quale risultato, su quale indicatore, in quale ambito.
+M = Misurabile: ha un indicatore e un valore che permette di dire se è raggiunto.
+A = Ambizioso: è sfidante rispetto all'andamento naturale (teoria di Locke).
+R = Raggiungibile: è realistico con risorse, tempo, competenze e mercato.
+T = Tempificato: ha una scadenza o finestra temporale.
+Considera anche la coerenza con l'interesse del cliente, la strategia e i valori della banca: un obiettivo SMART ma incoerente va segnalato nel commento.
+Il team può inventare dati verosimili: non penalizzare numeri inventati se plausibili.
+Rispondi SOLO con un oggetto JSON valido, in italiano, con questa struttura:
+{"lettere":{"S":{"ok":true,"nota":"..."},"M":{...},"A":{...},"R":{...},"T":{...}},"voto":0-10,"commento":"2-3 frasi, tono costruttivo e diretto","proposta":"una versione migliorata dell'obiettivo, oppure stringa vuota se è già ottimo"}`;
+async function callClaude(orig,rw){
+  const c=cfg();const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':c.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({model:c.model||'claude-sonnet-4-5',max_tokens:900,system:SYS,messages:[{role:'user',content:`Obiettivo originale: "${orig}"\nObiettivo riscritto dal team: "${rw}"`}]})});
+  if(!r.ok)throw new Error('errore '+r.status+' '+(await r.text()).slice(0,160));
+  const d=await r.json();const txt=d.content.map(x=>x.text||'').join('');const j=txt.slice(txt.indexOf('{'),txt.lastIndexOf('}')+1);return JSON.parse(j)}
+async function aiOne(id){const o=OBJ.find(x=>x.id===id);const rw=(S.rw[id]||'').trim();if(!rw){alertBox('Scrivete prima l\'obiettivo riscritto.');return}
+  S.ai[id]={loading:true};$('ai_'+id).innerHTML=aiBox(id);
+  try{S.ai[id]=await callClaude(o.t,rw)}catch(e){S.ai[id]={err:e.message}}save();const el=$('ai_'+id);if(el)el.innerHTML=aiBox(id)}
+async function aiAll(){for(const o of OBJ)if((S.rw[o.id]||'').trim())await aiOne(o.id);tSum()}
+
+/* ---------------- 5 RIEPILOGO ---------------- */
+function tSum(){
+  const ds=diagScore(S.diag);const hasKey=!!cfg().key;
+  $('main').innerHTML=`
+  <div class="card"><h2>Riepilogo del team ${esc(S.team)}</h2><p class="muted">${esc(S.classe)}${S.membri?' · '+esc(S.membri):''}</p>
+   <p>Diagnosi: <b>${ds.p}/${ds.max}</b></p>
+   <div class="row noprint"><button class="btn" onclick="exportJSON()">Scarica il file del team (per il formatore)</button><button class="btn sec" onclick="window.print()">Stampa / salva PDF</button>
+   ${hasKey?'<button class="btn sec" onclick="aiAll()">Commenta tutti con Claude</button>':''}</div></div>
+  ${OBJ.map(o=>`<div class="card obj"><div class="muted small">Obiettivo ${o.id}) · diagnosi ${ds.per[o.id]}/5 · lettere segnate come non soddisfatte: ${(S.diag[o.id]||[]).join(', ')||'nessuna'}</div>
+   <div><b>Originale:</b> ${o.t}</div>
+   <div style="margin-top:6px"><b>Riscritto dal team:</b> ${esc(S.rw[o.id])||'<i class="muted">non riscritto</i>'}</div>
+   <div class="small muted">Il team ritiene soddisfatte: ${L.filter(l=>(S.self[o.id]||{})[l]).join(', ')||'—'}</div>
+   ${aiBox(o.id)}</div>`).join('')}`;
+}
+
+/* ---------------- EXPORT ---------------- */
+function payload(){return {app:'smart',v:1,team:S.team,classe:S.classe,membri:S.membri,diag:S.diag,com:S.com,rw:S.rw,self:S.self,ai:S.ai,diagScore:diagScore(S.diag).p,dAt:S.dAt,rAt:S.rAt}}
+function exportJSON(){const b=new Blob([JSON.stringify(payload(),null,1)],{type:'application/json'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=`SMART_${(S.classe||'classe').replace(/\W+/g,'_')}_${(S.team||'team').replace(/\W+/g,'_')}.json`;a.click()}
+
+/* ---------------- FORMATORE ---------------- */
+const PIN='strale';
+function modal(h){$('modalBody').innerHTML=h;$('modal').classList.remove('hide')}
+function closeModal(){$('modal').classList.add('hide')}
+function alertBox(t){modal(`<p>${t}</p><button class="btn" onclick="closeModal()">OK</button>`)}
+function openTrainer(){
+  if(!S.unlocked){modal(`<h2>Area formatore</h2><label>Codice</label><input type="password" id="pin" onkeydown="if(event.key==='Enter')tryPin()"><div class="row" style="margin-top:10px"><button class="btn" onclick="tryPin()">Entra</button><button class="btn sec" onclick="closeModal()">Chiudi</button></div><p class="small muted" id="pinMsg"></p>`);setTimeout(()=>{const e=$('pin');if(e)e.focus()},50);return}
+  const c=cfg();
+  modal(`<h2>Area formatore</h2><details class="guide" open><summary>Istruzioni passo passo (clicca per chiudere)</summary>
+<p class="small">Codice formatore: <span class="pw">strale</span> (minuscolo o maiuscolo è uguale)</p>
+<h4>Prima della sessione, su ogni notebook</h4><ol>
+<li>Apri l'app (doppio clic su index.html oppure il link GitHub). Non usare la finestra privata del browser: i dati si perderebbero.</li>
+<li>Se ci sono i dati di un team precedente: Formatore → <span class="pw">strale</span> → <b>Nuovo team (azzera)</b>.</li></ol>
+<h4>Cosa fanno i team</h4><ol>
+<li>Scheda 1: scrivono nome del team, classe e componenti.</li>
+<li>Scheda 2 Diagnosi: per ogni obiettivo toccano le lettere NON soddisfatte (diventano rosse), poi <b>Consegna la diagnosi</b>.</li>
+<li>Scheda 3: leggono punteggio (su 35) e spiegazioni.</li>
+<li>Scheda 4: riscrivono i 7 obiettivi, spuntano le lettere che secondo loro sono soddisfatte, poi <b>Consegna gli obiettivi riscritti</b>.</li>
+<li>Scheda 5: cliccano <b>Scarica il file del team</b> (finisce in Download) e te lo passano (chiavetta, email o AirDrop).</li></ol>
+<h4>In plenaria, sul tuo notebook</h4><ol>
+<li>Formatore → <span class="pw">strale</span> → <b>Scegli file</b> → seleziona tutti i file .json insieme (Cmd + clic).</li>
+<li>Compare la pagina di confronto: tabella delle diagnosi (verde giusto, rosso da rivedere) e, per ogni obiettivo, i riscritti dei team con l'esempio corretto. Proiettala.</li>
+<li>In fondo alla pagina c'è il riquadro "Testo da incollare in chat": clicca <b>Copia</b>.</li>
+<li>Apri Claude (Cowork), incolla il testo e scrivi: <i>"commenta gli obiettivi SMART dei team e fammi il report"</i>. Ricevi il report Word team per team.</li></ol>
+<h4>Commento automatico (facoltativo: puoi ignorarlo)</h4><ol>
+<li>Serve una chiave API creata su console.anthropic.com (a consumo, diversa dall'abbonamento Claude) e internet in aula.</li>
+<li>Incolla la chiave nel campo qui sotto e premi <b>Salva</b>: nella scheda 4 compare "Chiedi il commento di Claude", nella 5 "Commenta tutti con Claude".</li>
+<li>Solo sul tuo notebook. A fine giornata premi <b>Cancella chiave</b>.</li></ol>
+<h4>Se qualcosa va storto</h4><ol>
+<li>Team ha consegnato per errore: <b>Riapri le consegne</b>.</li>
+<li>Cambio classe: prima fai scaricare il file del team, poi <b>Nuovo team (azzera)</b>.</li>
+<li>Il team non trova il file scaricato: è nella cartella Download e si chiama SMART_classe_team.json.</li></ol>
+</details><details class="guide"><summary>Come vengono dati i punteggi (logica di valutazione)</summary>
+<p><b>Diagnosi (su 35).</b> 7 obiettivi × 5 lettere = 35 valutazioni, 1 punto ciascuna. Per ogni lettera la chiave dice se è <i>non soddisfatta</i> (va segnata), <i>soddisfatta</i> (non va segnata) o <i>discutibile</i> (accettata in entrambi i casi: di solito A e R quando l'obiettivo non ha una misura e quindi non si possono giudicare).</p>
+<p>Chiave: a) S, M, T non soddisfatte; A, R discutibili · b) A e T · c) R · d) S, M, T; A, R discutibili · e) S, M, T; A, R discutibili · f) tutte soddisfatte, R discutibile (la trappola: è quasi SMART ma incoerente con l'interesse del cliente) · g) M, A, T; S, R discutibili.</p>
+<p><b>Controllo automatico della riscrittura.</b> Non dà punti: segnala solo se nel testo ci sono un numero (M), un riferimento temporale (T), un punto di partenza tipo "da X a Y" (aiuta a giudicare A e R), parole vaghe ("migliorare", "adeguato", "ragionevolmente"...) e se il testo è troppo breve.</p>
+<p><b>Commento di Claude</b> (automatico o tramite report): giudizio ✓/✗ per lettera con motivazione, voto 0-10, commento e versione migliorata; valuta anche la coerenza con la strategia e i valori della banca.</p>
+</details>
+   <h3>Confronto tra team e testo per Claude</h3><p class="small muted">Caricate i file .json scaricati dai team (anche di classi diverse).</p>
+   <input type="file" multiple accept=".json" onchange="compare(this.files)">
+   <h3>Commento automatico con Claude (facoltativo)</h3>
+   <p class="small muted">Serve una chiave API Anthropic. Resta salvata solo nel browser di questo computer: inseritela sul vostro notebook, non su quelli dei partecipanti, e cancellatela a fine corso.</p>
+   <label>Chiave API</label><input type="password" id="k" value="${esc(c.key||'')}" placeholder="sk-ant-...">
+   <label style="margin-top:8px">Modello</label><input type="text" id="mdl" value="${esc(c.model||'claude-sonnet-4-5')}">
+   <div class="row" style="margin-top:8px"><button class="btn sm" onclick="setCfg({key:$('k').value.trim(),model:$('mdl').value.trim()});closeModal();render()">Salva</button>
+   <button class="btn sm sec" onclick="setCfg({});closeModal();render()">Cancella chiave</button></div>
+   <h3>Gestione</h3>
+   <div class="row"><button class="btn sm sec" onclick="S.dSub=false;S.rSub=false;save();closeModal();go(1)">Riapri le consegne</button>
+   <button class="btn sm sec" onclick="if(confirm('Cancellare i dati del team su questo notebook?')){localStorage.removeItem(KEY);location.reload()}">Nuovo team (azzera)</button>
+   <button class="btn sm sec" onclick="S.unlocked=false;save();closeModal()">Esci</button></div>`);
+}
+function tryPin(){if($('pin').value.trim().toLowerCase()===PIN){S.unlocked=true;save();openTrainer()}else $('pinMsg').textContent='Codice errato.'}
+let TEAMS=[];
+async function compare(files){TEAMS=[];for(const f of files){try{const d=JSON.parse(await f.text());if(d.app==='smart')TEAMS.push(d)}catch(e){}}
+  closeModal();S.tab=-1;renderNav();
+  const cell=(t,o,l)=>{const k=o.k[l],x=(t.diag[o.id]||[]).includes(l);const r=k==='d'||(k==='ko')===x;return `<td class="${r?'c-ok':'c-ko'}">${x?'✗':'·'}</td>`};
+  $('main').innerHTML=`
+  <div class="card tbl-wrap"><h2>Diagnosi a confronto (${TEAMS.length} team)</h2><p class="small muted">✗ = lettera segnata come non soddisfatta. Verde = corretta, rosso = da rivedere.</p>
+  <table><tr><th class="l">Team</th>${OBJ.map(o=>`<th colspan="5">${o.id})</th>`).join('')}<th>Punti</th></tr>
+  <tr><th></th>${OBJ.map(()=>L.map(l=>`<th>${l}</th>`).join('')).join('')}<th></th></tr>
+  <tr><td class="l"><i>Chiave</i></td>${OBJ.map(o=>L.map(l=>`<td>${o.k[l]==='ko'?'✗':o.k[l]==='d'?'?':'·'}</td>`).join('')).join('')}<td></td></tr>
+  ${TEAMS.map(t=>`<tr><td class="l"><b>${esc(t.team)}</b><br><span class="small muted">${esc(t.classe)}</span></td>${OBJ.map(o=>L.map(l=>cell(t,o,l)).join('')).join('')}<td><b>${diagScore(t.diag).p}</b></td></tr>`).join('')}
+  </table></div>
+  ${OBJ.map(o=>`<div class="card obj"><h3>${o.id}) ${o.t}</h3>
+   ${TEAMS.map(t=>`<div class="fb"><b>${esc(t.team)}:</b> ${esc((t.rw||{})[o.id])||'<i>—</i>'}${t.ai&&t.ai[o.id]&&t.ai[o.id].voto!=null?` <span class="small muted">(Claude: ${t.ai[o.id].voto}/10)</span>`:''}</div>`).join('')}
+   <div class="fb ok"><b>Esempio di riscrittura:</b> ${o.ex}</div></div>`).join('')}
+  <div class="card noprint"><h2>Testo da incollare in chat per il report</h2><p class="small muted">Copiate il testo e incollatelo a Claude con la richiesta "commenta gli obiettivi SMART dei team".</p>
+   <textarea id="exp" style="min-height:200px">${esc(exportText())}</textarea>
+   <div class="row" style="margin-top:8px"><button class="btn" onclick="navigator.clipboard.writeText($('exp').value).then(()=>alertBox('Testo copiato.'))">Copia</button><button class="btn sec" onclick="go(0)">← Torna all'app</button></div></div>`;
+}
+function exportText(){return `ESERCITAZIONE OBIETTIVI SMART (Specifico, Misurabile, Ambizioso, Raggiungibile, Tempificato) – obiettivi riscritti dai team\n\n`+
+  TEAMS.map(t=>`### TEAM: ${t.team} | CLASSE: ${t.classe} | componenti: ${t.membri||''} | punteggio diagnosi: ${diagScore(t.diag).p}/35\n`+
+   OBJ.map(o=>`${o.id}) ORIGINALE: ${o.t}\n   lettere segnate non soddisfatte: ${(t.diag[o.id]||[]).join(',')||'nessuna'}${t.com&&t.com[o.id]?` | motivazione: ${t.com[o.id]}`:''}\n   RISCRITTO: ${(t.rw||{})[o.id]||'(non riscritto)'}\n   autovalutazione soddisfatte: ${L.filter(l=>((t.self||{})[o.id]||{})[l]).join(',')||'-'}`).join('\n')).join('\n\n')}
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+if(S.tab<0||S.tab>4)S.tab=0;
+render();
+</script>
+</body>
+</html>
