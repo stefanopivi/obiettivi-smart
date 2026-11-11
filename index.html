@@ -170,7 +170,9 @@ const OBJ=[
 ];
 
 /* ---------------- STATO ---------------- */
-const KEY='strale_smart_v1';
+const KEY='strale_smart_v2';
+/* Azzera i dati delle classi precedenti (tranne la configurazione del formatore, strale_smart_cfg): per un nuovo azzeramento basta cambiare il numero di versione qui sopra */
+try{Object.keys(localStorage).filter(k=>k.indexOf('strale_smart_')===0&&k!==KEY&&k!=='strale_smart_cfg').forEach(k=>localStorage.removeItem(k))}catch(e){}
 let S=load()||{team:'',classe:'',membri:'',diag:{},com:{},rw:{},self:{},ai:{},dSub:false,rSub:false,tab:0,unlocked:false};
 function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
